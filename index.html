@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Coldstone Fake Site</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <style>
+    body {
+      padding: 0px;
+      margin: 0px;
+      background-image: linear-gradient(white 40%, grey ,black);
+    }
+
+    .bocin {
+      background-color: rgb(208, 33, 33);
+      color: whitesmoke;
+      border-radius: 10px;
+      margin: auto;
+      width: 425px;
+      text-align: center;
+    }
+
+    .menu {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      background-color: whitesmoke;
+      border-bottom: solid 2px #d81d1d;
+    }
+
+    .item {
+      margin-left: 30px;
+      text-align: center;
+      font-size: 28px;
+      padding: 10px;
+      color: #d81d1d;
+      justify-content: left;
+
+    }
+
+    .item:hover {
+      color: #9e0716;
+      background-color: lightgray;
+    }
+
+    header {
+      display: flex;
+      justify-content: center;
+      height: 150px;
+      width: 100%;
+    }
+
+    #sortable {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      width: 450px;
+    }
+
+    #sortable li {
+      margin: 3px 3px 3px 0;
+      padding: 1px;
+      float: left;
+      width: 100px;
+      height: 90px;
+      font-size: 4em;
+      text-align: center;
+    }
+
+    #accordion div {
+      background-color: #9e0716;
+      color: white
+    }
+
+    #accordion h3 {
+      background-color: #9e0716;
+      color: white
+    }
+
+    textarea {
+      resize: none;
+      width:370px;
+    }
+
+    .court {
+      margin: auto;
+      margin-top: 2000px;
+      margin-bottom: 200px;
+      width: 246px;
+      height: 400px;
+      align-content: center;
+      justify-content: center;
+    }
+    @media (max-width:660px){
+      header{
+        height: 100px
+      }
+    }
+    @media (max-width:440px){
+      header{
+        height: 50px
+      }
+      .bocin{
+        width: 200px;
+      }
+      textarea{
+        width: 155px;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script>
+    $(function () {
+      $("#datepicker").datepicker();
+    });
+
+  </script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script>
+    $(function () {
+      $(document).tooltip();
+    });
+  </script>
+  <script>
+    $(function () {
+      $("#accordion").accordion({
+        collapsible: true, active: false
+      });
+    });
+  </script>
+  <style>
+    label {
+      display: inline-block;
+      width: 5em;
+    }
+    #red, #green, #blue {
+    float: left;
+    clear: left;
+    width: 200px;
+    margin: 15px;
+  }
+  #swatch {
+    width: 120px;
+    height: 125px;
+    margin-top: 18px;
+    margin-left: 250px;
+    background-image: none;
+  }
+  #red .ui-slider-range { background: #ef2929; }
+  #red .ui-slider-handle { border-color: #ef2929; }
+  #green .ui-slider-range { background: #8ae234; }
+  #green .ui-slider-handle { border-color: #8ae234; }
+  #blue .ui-slider-range { background: #729fcf; }
+  #blue .ui-slider-handle { border-color: #729fcf; }
+  </style>
+  <script>
+    $(function () {
+      // run the currently selected effect
+      function runEffect() {
+        // get effect type from
+        var selectedEffect = $("#effectTypes").val();
+
+        // Most effect types need no options passed by default
+        var options = {};
+        // some effects have required parameters
+        if (selectedEffect === "scale") {
+          options = { percent: 50 };
+        } else if (selectedEffect === "size") {
+          options = { to: { width: 200, height: 60 } };
+        }
+
+        // Run the effect
+        $("#effect").hide(selectedEffect, options, 1000, callback);
+      };
+
+      // Callback function to bring a hidden box back
+      function callback() {
+        setTimeout(function () {
+          $("#effect").removeAttr("style").hide().fadeIn();
+        }, 1000);
+      };
+
+      // Set effect from select menu value
+      $("#button").on("click", function () {
+        runEffect();
+      });
+    });
+    $( function() {
+    function hexFromRGB(r, g, b) {
+      var hex = [
+        r.toString( 16 ),
+        g.toString( 16 ),
+        b.toString( 16 )
+      ];
+      $.each( hex, function( nr, val ) {
+        if ( val.length === 1 ) {
+          hex[ nr ] = "0" + val;
+        }
+      });
+      return hex.join( "" ).toUpperCase();
+    }
+    function refreshSwatch() {
+      var red = $( "#red" ).slider( "value" ),
+        green = $( "#green" ).slider( "value" ),
+        blue = $( "#blue" ).slider( "value" ),
+        hex = hexFromRGB( red, green, blue );
+      $( "#swatch" ).css( "background-color", "#" + hex );
+    }
+ 
+    $( "#red, #green, #blue" ).slider({
+      orientation: "horizontal",
+      range: "min",
+      max: 255,
+      value: 127,
+      slide: refreshSwatch,
+      change: refreshSwatch
+    });
+    $( "#red" ).slider( "value", 255 );
+    $( "#green" ).slider( "value", 140 );
+    $( "#blue" ).slider( "value", 60 );
+  } );
+  </script>
+</head>
+
+<body>
+  <header><img src="./cold-stone-creamery-logo.webp"></header>
+  <nav class="menu">
+    <div class="item">About</div>
+    <div class="item">Home</div>
+    <div class="item">Ice Cream</div>
+    <div class="item">Cakes</div>
+    <div class="item">Drinks</div>
+    <div class="item">Rewards</div>
+  </nav>
+  <img src="./Cold-Stone-Creamery-Header.jpg" width="100%">
+  <div class="bocin">
+    <H1>Order a cake!</H1>
+    <p><label for="age">Your Name:</label><input id="age"
+        title="We ask for your name when you pick up the cake for correct services."></p>
+    <textarea style="height:195px;" placeholder="Explain your order here"></textarea>
+    <h2 for="frost">Please choose a main frosting color</h2>
+     
+    <div id="red"></div>
+    <div id="green"></div>
+    <div id="blue"></div>
+     
+    <div id="swatch" class="ui-widget-content ui-corner-all"></div>
+    <h2 for="age">Please choose corresponding choice closest to your order</h2>
+    <div id="accordion">
+      <h3>Normal Cake</h3>
+      <div>
+        <p>Our cakes come in many flavors such as chocolate, vanilla, strawberry, red velvet, and carrot. Frostings come
+          in a variety of colors and we also includ special messages for birthdays aswell. Images can also be frosted on
+          the cake, as well as taking away frosting on the cake. Gluten-free and vegan options for the cake are
+          availible aswell.</p>
+      </div>
+      <h3>Ice Cream Cake</h3>
+      <div>
+        <p>Our cakes come in many flavors such as chocolate, vanilla, strawberry, red velvet, and carrot. Ice cream
+          flavors are limited to your local coldstone's collection. Layers of the cake can be custom with 2 different
+          flavored ice cream flavoring on 2 different levels. Frostings come in a variety of colors and we also includ
+          special messages for birthdays aswell. Images can also be frosted on the cake, as well as taking away frosting
+          on the cake. Gluten-free and vegan options for the cake are availible aswell.</p>
+      </div>
+      <h3>Special Event Cake</h3>
+      <div>
+        <p>Our cakes come in many flavors such as chocolate, vanilla, strawberry, red velvet, and carrot. Ice cream
+          flavors are limited to your local coldstone's collection. Layers of the cake can be custom with 2 different
+          flavored ice cream flavoring on 2 different levels. Gluten-free and vegan options for the cake are availible
+          aswell. These cakes are special designed and are not custom when it comes to frostings. Our event specialty
+          cakes include:</p>
+        <ul>
+          <li>New Years</li>
+          <li>Valentines day</li>
+          <li>Anniverserys</li>
+          <li>Christmas</li>
+          <li>Holloween</li>
+          <li>More on the way...</li>
+        </ul>
+      </div>
+      <h3>Ices Cream Pints</h3>
+      <div>
+        <p> Ice cream flavors are limited to your local coldstone's collection. We are limited to at most 5 pints of ice
+          cream per order due to reasource management. You may order a special flavor but it will effect when we can
+          deliever you the product. We recommend looking at your local coldstone to take this order to make sure for
+          full customer satisfaction.</p>
+        <p>Additional toppings in the pints will cost $0.50 extra per topping 1 cup a piece. </p>
+      </div>
+    </div>
+    <p>Pickup Date: <input type="text" id="datepicker"></p>
+    <input type="submit" style="margin-bottom: 10px;">
+  </div>
+  <div class="court">
+    <div class="toggler">
+      <div id="effect" class="ui-widget-content ui-corner-all">
+        <h3 class="ui-widget-header ui-corner-all">DECIDE HIS FATE</h3>
+        <img src="./download.png" style="margin:auto;" >
+      </div>
+    </div>
+    <select name="effects" id="effectTypes">
+      <option value="blind">Blind</option>
+      <option value="bounce">Bounce</option>
+      <option value="clip">Clip</option>
+      <option value="drop">Drop</option>
+      <option value="explode">Explode</option>
+      <option value="fade">Fade</option>
+      <option value="fold">Fold</option>
+      <option value="highlight">Highlight</option>
+      <option value="puff">Puff</option>
+      <option value="pulsate">Pulsate</option>
+      <option value="scale">Scale</option>
+      <option value="shake">Shake</option>
+      <option value="size">Size</option>
+      <option value="slide">Slide</option>
+    </select>
+
+    <button id="button" class="ui-state-default ui-corner-all">Run Effect</button>
+  </div>
+</body>
+
+</html>
